@@ -28,6 +28,9 @@ Here is a diagram of how everything generally fits together:
 
 ### Stores
 
+#### Overview
+The purpose of Flux stores is to hold and manage the modification application state. Flux stores contain Bacon Properties that listen to Action Buses for events which modify their internal state. Every time a property state changes it in turn emits its own event.
+
 #### Creating Store Properties
 Store properties have an initial state and can be mutated by incomming action events.
 ```js
