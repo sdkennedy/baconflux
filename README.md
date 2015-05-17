@@ -41,7 +41,7 @@ The purpose of Flux stores is to hold and manage the modification application st
 #### Creating Store Properties
 Store properties have an initial state and can be mutated by incomming action events. Here is a simplified example:
 
-`createActions` will take each incomming function, create an action bus for it and bind the function's this to that bus. [createActions createActions](https://github.com/sdkennedy/baconflux/blob/master/src/scripts/actions/todo-list.js)
+`createActions` will take each incomming function, create an action bus for it and bind the function's this to that bus. [createActions definition](https://github.com/sdkennedy/baconflux/blob/master/src/scripts/actions/todo-list.js)
 ```js
 
 var {actions, buses} = createActions({
