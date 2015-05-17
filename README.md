@@ -59,12 +59,7 @@ removeItemBus.push(1);
 ```
 
 #### Using Store Properties in React
-React components can subscribe to property changes with:
-```js
-var unsubscribeFn = StoreProperty.onValue( (newValue) => /* Do something */);
-```
-
-The [react-bacon](https://github.com/jamesmacaulay/react-bacon) library provides a mixin that conveniently assigns a properties current value of a Bacon.js Property to a state key. When the property value changes so does the state property value.
+Although React components can manually subscribe/unsubscribe on componentDidMount/componentWillUnmount respectively, the [react-bacon](https://github.com/jamesmacaulay/react-bacon) library provides a mixin that conveniently assigns the current value of a Bacon.js Property to a state key. When the property value changes so does the state property value.
 This avoids the boilerplate of having to constantly subscribe and unsubscribe from properties.
 ```js
 var App = React.createClass({
