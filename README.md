@@ -19,7 +19,7 @@ grunt serve
 ## Architecture
 
 ### Prerequisite concepts
-This implementation is heavily influenced by Functional Reactive Programming (which is different than React). Netflix has produced a very good talk on the topic which can be viewed here: [https://www.youtube.com/watch?v=XRYN2xt11Ek](https://www.youtube.com/watch?v=XRYN2xt11Ek)
+This implementation heavily relies on Functional Reactive Programming (which is different than React). Netflix has produced a very good talk on the topic which can be viewed here: [https://www.youtube.com/watch?v=XRYN2xt11Ek](https://www.youtube.com/watch?v=XRYN2xt11Ek)
 
 ### Overview
 
