@@ -40,10 +40,14 @@ The purpose of Flux stores is to hold and manage the modification application st
 
 #### Creating Store Properties
 Store properties have an initial state and can be mutated by incomming action events. Here is a simplified example:
+
+`createActions` will take each incomming function, create an action bus for it and bind the function's this to that bus. [createActions createActions](https://github.com/sdkennedy/baconflux/blob/master/src/scripts/actions/todo-list.js)
 ```js
-// Action Buses
-var removeItemBus = new Bacon.Bus();
-var setItemBus = new Bacon.Bus();
+
+var {actions, buses} = createActions({
+    removeItem(id){ this.push(id); },
+    setItem(item){ this.push(item); },
+});
 
 // Mutation Functions
 var deleteItem = (previousItems, id) => previousItems.delete(id);
@@ -52,8 +56,8 @@ var setItem = (previousItems, item) => previousItems.set(item.get("id"), item);
 // Store Property
 var todoItems = Bacon.update(
     Immutable.OrderedMap(),
-    [removeItemBus], deleteItem,
-    [setItemBus], setItem
+    [buses.removeItem], deleteItem,
+    [buses.setItem], setItem
 );
 ```
 
@@ -63,11 +67,11 @@ var unsubscribeFn = todoItems.onValue(
     (items) => console.log( JSON.stringify( items.toJS() ) )
 );
 
-setItemBus.push({ id:1, text:"First todo list item!"});
+actions.setItem({ id:1, text:"First todo list item!"});
 // { "1": { "id":1, "text":"First todo list item!" } }
-setItemBus.push({ id:1, text:"Second todo list item!"});
+actions.setItem({ id:1, text:"Second todo list item!"});
 // { "1": { "id":1, "text":"First todo list item!" }, "2": { "id":2, "text":"Second todo list item!" } }
-removeItemBus.push(1);
+actions.removeItem(1);
 // { "2": { "id":2, "text":"Second todo list item!" } }
 
 // If we are done listening to todoItems we can unsubscribe with unsubscribeFn.
