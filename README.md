@@ -121,7 +121,7 @@ If we have an Action Bus (EventStream) ```loadItemsBusStarted``` we can create a
 var loadItemsBusFinished = loadItemsBusStarted
     .flatMap( (event) => Bacon.fromPromise($.get("api/todoItems")) )
     .map( (elements) => { success:true, elements:elements } )
-    .flatMapError( (error) => { success:false, error:error } );
+    .flatMapError( (error) => Bacon.constant({ success:false, error:error }) );
 ```
 
 It is easiest to think of FRP operators like functional array operators. Bacon.fromPromise creates a nested EventStream (think array) with [0..1] events. So for each incomming event we are creating a nested EventStream  instead of a new event. This is equivalent to:
