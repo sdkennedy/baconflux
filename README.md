@@ -103,7 +103,7 @@ var App = React.createClass({
 The great thing about using FRP is that EventStreams (Action Buses) and Properties can be composed and transformed into new EventStreams and Properties with functional operators.
 
 #### Composed Properties
-If we had two properties todoStore.items {Immutable.Map()} and todoStore.checkedItemIds {Immutable.Set()} would could compose those properties in a new function todoStore.checkedItems that stores all of the checked items and is updated when ever todoStore.items or todoStore.checkedItemIds updates.
+If we had two properties `todoStore.items` {Immutable.Map()} and `todoStore.checkedItemIds` {Immutable.Set()} would could compose those properties in a new function `todoStore.checkedItems` that stores all of the checked items and is updated when ever `todoStore.items` or `todoStore.checkedItemIds` updates.
 ```js
 var checkedItems = Bacon.combineWith(
     (items, checkedItemIds) => items.filter( (item) => checkedItemIds.has(item.id) ),
