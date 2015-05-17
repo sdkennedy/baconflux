@@ -108,7 +108,7 @@ var checkedItems = Bacon.combineWith(
 );
 ```
 
-### Interaction with Asyncronous APIs 
+#### Interaction with Asyncronous APIs 
 When making potentially slow API requests, it is some times useful to optimistically update the UI state before making the request and then reconciling the UI state after the request fails or succeeds. Being able to create derived action EventStreams can solve this problem elegantly.
 
 If we have an Action Bus (EventStream) ```loadItemsBusStarted``` we can create a derived Action Bus ``` loadItemsBusFinished``` that will fire an event after the API call has completed.
