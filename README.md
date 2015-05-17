@@ -154,3 +154,13 @@ var items = Bacon.update(
     }
 );
 ```
+
+### Performance
+
+These are some preliminary performance considerations.
+
+#### Atomic Property Updates
+One great aspect of Bacon.js is that properties composed of other properties are updated atomically.
+If a have a property A and two properties B, C that are derived from A and a Property D that is derived from B + C, Bacon.js is smart enough to only fire on change event for D. This is because all derived properties are updated atomically before firing any change events. You can read more about this [here](https://baconjs.github.io/api.html#atomic-updates). 
+
+This usually results in one action event only causing one rerendering of the UI. Although one Action Bus event might cause a derived Action Buses to fire an event. [See: Interaction With Asyncronous APIs ](/sdkennedy/baconflux/blob/master/README.md#interaction-with-asyncronous-apis)
