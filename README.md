@@ -111,17 +111,16 @@ var checkedItems = Bacon.combineWith(
 #### Interaction with Asyncronous APIs 
 When making potentially slow API requests, it is some times useful to optimistically update the UI state before making the request and then reconciling the UI state after the request fails or succeeds. Being able to create derived action EventStreams can be solve this problem elegantly.
 
-If we have an Action Bus (EventStream) ```loadItemsBusStarted``` we can create a derived Action Bus ``` loadItemsBusFinished``` that will fire an event after the api call has completed.
+If we have an Action Bus (EventStream) ```loadItemsBusStarted``` we can create a derived Action Bus ``` loadItemsBusFinished``` that will fire an event after the API call has completed.
 
 ```js
-var loadItemsBusFinished = loadItemsBusStarted.flatMap(
-    (event) => {
-        return Bacon.fromPromise($.get("api/todoItems"));
-    }
-);
+var loadItemsBusFinished = loadItemsBusStarted
+    .flatMap( (event) => Bacon.fromPromise($.get("api/todoItems")) )
+    .map( (elements) => { success:true, elements:elements } )
+    .flatMapError( (error) => { success:false, error:error } );
 ```
 
-It is easiest to think of FRP operators like functional array operators. Bacon.fromPromise creates a nested EventStream (think array) with [0..1] events. So for each incomming event (think element) we are creating a nested EventStream (think array) instead of a new event (think element). This is equivalent to:
+It is easiest to think of FRP operators like functional array operators. Bacon.fromPromise creates a nested EventStream (think array) with [0..1] events. So for each incomming event we are creating a nested EventStream  instead of a new event. This is equivalent to:
 
 ```js
 var initialArray = [1,2,3];
@@ -131,4 +130,27 @@ initialArray.map( (item) => [item] );
 // If javascript had flatMap it would do map, then concatenates all of the sub arrays
 initialArray.flatMap( (item) => [item] );
 // [ 1, 2, 3 ]
+```
+
+We can now build our todoStore.items Property with both the ```loadItemsBusStarted``` and ```loadItemsBusFinished``` events.
+```js
+var setLoading = (items, event) => items.set("loading", true);
+var setError = (items, error) => items.merge({ loading:false, error:error });
+var setElements = (items, elements) => items.merge({ error:null, loading:false, loaded:true, element:elements });
+var items = Bacon.update(
+    Immutable.Map({
+        error:null,
+        loaded:false,
+        loading:false,
+        elements:Immutable.List()
+    }),
+    [loadItemsBusStarted], setLoading,
+    [loadItemsBusFinished], (items, event) => {
+        if(event.success){
+            return setElements(items, event.elements);
+        } else {
+            return setError(items, event.error);
+        }
+    }
+);
 ```
