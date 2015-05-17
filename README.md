@@ -26,9 +26,9 @@ This implementation is heavily influenced by Functional Reactive Programming (wh
 Here is a diagram of how everything generally fits together:
 ![Overal Architecture Diagram](https://cloud.githubusercontent.com/assets/8094943/7668549/4167fe78-fbf3-11e4-92b0-6d5fc4352b85.png)
 
-### Store Properties
+### Stores
 
-#### Creating Properties
+#### Creating Store Properties
 Store properties have an initial state and can be mutated by incomming action events.
 ```js
 // Action Buses
