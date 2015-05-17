@@ -69,7 +69,7 @@ var unsubscribeFn = todoItems.onValue(
 
 actions.setItem({ id:1, text:"First todo list item!"});
 // { "1": { "id":1, "text":"First todo list item!" } }
-actions.setItem({ id:1, text:"Second todo list item!"});
+actions.setItem({ id:2, text:"Second todo list item!"});
 // { "1": { "id":1, "text":"First todo list item!" }, "2": { "id":2, "text":"Second todo list item!" } }
 actions.removeItem(1);
 // { "2": { "id":2, "text":"Second todo list item!" } }
