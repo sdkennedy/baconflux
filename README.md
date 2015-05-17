@@ -30,7 +30,7 @@ Data generally flows through the system in the following way:
 
 1. React Component calls Action Function
 2. Action Function pushes event on to Action Bus
-3. Store Property recieves Action Bus event and updates its state accordingly
+3. Store Property recieves Action Bus events and updates its state accordingly
 4. React Component listens for Store Property changes and rerenders its view when necessary
 
 ### Stores
