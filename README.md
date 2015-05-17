@@ -68,7 +68,7 @@ setItemBus.push({ id:1, text:"First todo list item!"});
 setItemBus.push({ id:1, text:"Second todo list item!"});
 // { "1": { "id":1, "text":"First todo list item!" }, "2": { "id":2, "text":"Second todo list item!" } }
 removeItemBus.push(1);
-// "2": { "id":2, "text":"Second todo list item!" } }
+// { "2": { "id":2, "text":"Second todo list item!" } }
 ```
 
 #### Using Store Properties in React
