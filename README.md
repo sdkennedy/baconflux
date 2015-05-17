@@ -26,6 +26,13 @@ This implementation is heavily influenced by Functional Reactive Programming (wh
 Here is a diagram of how everything generally fits together:
 ![Overal Architecture Diagram](https://cloud.githubusercontent.com/assets/8094943/7668549/4167fe78-fbf3-11e4-92b0-6d5fc4352b85.png)
 
+Data generally flows through the system in the following way:
+
+1. React Component calls Action Function
+2. Action Function pushes event on to Action Bus
+3. Store Property recieves Action Bus event and updates its state accordingly
+4. React Component listens for Store Property changes and rerenders its view when necessary
+
 ### Stores
 
 #### Overview
