@@ -118,7 +118,7 @@ var loadItemsBusFinished = loadItemsBusStarted.flatMap(
 );
 ```
 
-It is easiest to think of FRP operators like functional array operators. Bacon.fromPromise creates an EventStream (think array) with [0..1] events. So for each incomming event (think element) we are creating a nested EventStream (think array) instead of a new event (think element). This is equivalent to:
+It is easiest to think of FRP operators like functional array operators. Bacon.fromPromise creates a nested EventStream (think array) with [0..1] events. So for each incomming event (think element) we are creating a nested EventStream (think array) instead of a new event (think element). This is equivalent to:
 
 ```js
 var initialArray = [1,2,3];
