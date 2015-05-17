@@ -18,7 +18,11 @@ grunt serve
 
 ## Architecture
 
+### Prerequisite concepts
+This implementation is heavily influenced by Functional Reactive Programming (which is different than React). Netflix has produce a very good talk on the topic which can be viewed here: [https://www.youtube.com/watch?v=XRYN2xt11Ek](https://www.youtube.com/watch?v=XRYN2xt11Ek)
+
 ### Overview
+
 
 Here is a diagram of how everything generally fits together:
 ![Overal Architecture Diagram](https://cloud.githubusercontent.com/assets/8094943/7668549/4167fe78-fbf3-11e4-92b0-6d5fc4352b85.png)
@@ -33,8 +37,8 @@ var removeItemBus = new Bacon.Bus();
 var setItemBus = new Bacon.Bus();
 
 // Mutation Functions
-var deleteItem = (items, id) => items.delete(id);
-var setItem = (items, item) => items.set(item.get("id"), item);
+var deleteItem = (previousItems, id) => previousItems.delete(id);
+var setItem = (previousItems, item) => previousItems.set(item.get("id"), item);
 
 // Store Property
 var todoItems = Bacon.update(
