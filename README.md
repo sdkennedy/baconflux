@@ -91,3 +91,41 @@ var App = React.createClass({
     }
 });
 ```
+
+#### The Functional Part of FRP
+The great thing about using FRP is that EventStreams (Action Buses) and Properties can be composed and transformed with functional operators.
+
+#### Composed Properties
+If we had two properties todoStore.items {Immutable.Map()} and todoStore.checkedItemIds {Immutable.Set()} would could compose those properties in a new function todoStore.checkedItems that stores all of the checked items and is updated when ever todoStore.items or todoStore.checkedItemIds updates.
+```js
+var checkedItems = Bacon.combineWith(
+    (items, checkedItemIds) => items.filter( (item) => checkedItemIds.has(item.id) ),
+    todoStore.items,
+    todoStore.checkedItemIds
+);
+```
+
+#### Interaction with Asyncronous APIs 
+When making potentially slow API requests, it is some times useful to optimistically update the UI state before making the request and then reconciling the UI state after the request fails or succeeds. Being able to create derived action EventStreams can be solve this problem elegantly.
+
+If we have an Action Bus (EventStream) ```loadItemsBusStarted``` we can create a derived Action Bus ``` loadItemsBusFinished``` that will fire an event after the api call has completed.
+
+```js
+var loadItemsBusFinished = loadItemsBusStarted.flatMap(
+    (event) => {
+        return Bacon.fromPromise($.get("api/todoItems"));
+    }
+);
+```
+
+It is easiest to think of FRP operators like functional array operators. Bacon.fromPromise creates an EventStream (think array) with [0..1] events. So for each incomming event (think element) we are creating a nested EventStream (think array) instead of a new event (think element). This is equivalent to:
+
+```js
+var initialArray = [1,2,3];
+initialArray.map( (item) => [item] );
+// [ [1], [2], [3] ]
+
+// If javascript had flatMap it would do map, then concatenates all of the sub arrays
+initialArray.flatMap( (item) => [item] );
+// [ 1, 2, 3 ]
+```
