@@ -1,5 +1,5 @@
 # baconflux
-Proof of concept using Bacon.js to create a Flux-like architecture.
+Proof of concept using [Bacon.js](https://baconjs.github.io/) to create a Flux-like architecture.
 
 ## Installing
 
